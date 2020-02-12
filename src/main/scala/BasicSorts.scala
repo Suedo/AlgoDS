@@ -3,8 +3,9 @@ import math.Ordering
 object BasicSorts extends App {
   val bs = new BasicSorts()
   val arr = Array(4, 2, 7, 6, 4, 5, 1, 1, 9, 9, 15, 14);
-  var li: List[Int] = arr.toList
-  val op = bs.mergeSort(li)(Ordering[Int]).mkString(" ")
+//  var li: List[Int] = arr.toList
+//  val op = bs.mergeSort(li)(Ordering[Int]).mkString(" ")
+  val op = bs.insertionSort(arr).mkString(" ")
   println(op)
 }
 
@@ -45,10 +46,13 @@ class BasicSorts {
 
   def insertionSort(arr: Array[Int]): Array[Int] = {
     for (right <- 1 until arr.length) {
+      var sorted = false
       var left = right - 1
-      while (left >= 0) {
-        if (arr(left) > arr(left + 1)) swap(arr, left, left + 1)
-        left -= 1
+      while (left >= 0 && !sorted) {
+        if (arr(left) > arr(left + 1)) {
+          swap(arr, left, left + 1)
+          left -= 1
+        } else sorted = true
       }
       println(arr.mkString("  "))
     }
