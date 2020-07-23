@@ -17,6 +17,17 @@ public class Helpers {
         System.out.println(str);
     }
     
+    static void show2DArr(String[][] arr) {
+        StringBuilder str = new StringBuilder("");
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                str.append(String.format("%8s ", arr[i][j]));
+            }
+            str.append("\n");
+        }
+        System.out.println(str);
+    }
+    
     /**
      * Reverses a given string, padding it with delim if provided.
      * @param a string to reverse
@@ -52,5 +63,15 @@ public class Helpers {
             b[i] = String.valueOf(a[i]);
         }
         return b;
+    }
+    
+    static String[][] get2DStringArr(int m, int n){
+        String[][] memo = new String[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                memo[i][j] = "";
+            }
+        }
+        return memo;
     }
 }
