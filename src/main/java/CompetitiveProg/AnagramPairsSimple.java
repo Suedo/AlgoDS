@@ -13,8 +13,8 @@ import static java.util.stream.Collectors.groupingBy;
 public class AnagramPairsSimple {
     
     // anagrams will have same ascii sum of individual chars
-    static int asciiSum(String s) {
-        int sum = 0;
+    static long asciiSum(String s) {
+        long sum = 0;
         for (char c : s.toCharArray()) {
             sum += c;
         }
@@ -24,7 +24,7 @@ public class AnagramPairsSimple {
     static int numOfAnagramPairs(String s) {
         // get all substrings, and group them by ascii value
         // thus, all substrings in a group are anagrams
-        Map<Integer, List<String>> subs = allSubstrings(s).stream().collect(groupingBy(AnagramPairsSimple::asciiSum));
+        Map<Long, List<String>> subs = allSubstrings(s).stream().collect(groupingBy(AnagramPairsSimple::asciiSum));
         
         // we have to find anagram pair, this make pairs from each group
         // If a group has N members, then num of anagram pairs == nC2

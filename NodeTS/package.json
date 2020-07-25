@@ -1,0 +1,16 @@
+{
+  "name": "NodeTS",
+  "version": "0.0.1",
+  "description": "Algorithm and DataStructures using NodeJs and TypeScript",
+  "main": "index.js",
+  "author": "Somjit Nag",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "npx tsc && node src/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.26",
+    "typescript": "^3.9.7"
+  }
+}
