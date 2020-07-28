@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static CompetitiveProg.Helpers.allSubstrings;
-import static CompetitiveProg.Helpers.nCr;
+import static CompetitiveProg.Helpers.*;
 import static java.util.stream.Collectors.groupingBy;
 
 public class AnagramPairsSimple {
@@ -21,7 +20,7 @@ public class AnagramPairsSimple {
         return sum;
     }
     
-    static int numOfAnagramPairs(String s) {
+    static long numOfAnagramPairs(String s) {
         // get all substrings, and group them by ascii value
         // thus, all substrings in a group are anagrams
         Map<Long, List<String>> subs = allSubstrings(s).stream().collect(groupingBy(AnagramPairsSimple::asciiSum));
@@ -33,10 +32,10 @@ public class AnagramPairsSimple {
                 .stream()
                 .filter(list -> list.size() >= 2)
 //                .peek(System.out::println)
-                .mapToLong(list -> nCr(list.size(), 2))
+                .mapToLong(list -> nC2(list.size()))
                 .sum();
         
-        return (int) sum;
+        return sum;
     }
     
     public static void main(String[] args) {
@@ -50,3 +49,73 @@ public class AnagramPairsSimple {
         }
     }
 }
+
+
+/*
+ Failing for certain large inputs, example:
+
+For input lines:
+
+dbcfibibcheigfccacfegicigcefieeeeegcghggdheichgafhdigffgifidfbeaccadabecbdcgieaffbigffcecahafcafhcdg
+dfcaabeaeeabfffcdbbfaffadcacdeeabcadabfdefcfcbbacadaeafcfceeedacbafdebbffcecdbfebdbfdbdecbfbadddbcec
+gjjkaaakklheghidclhaaeggllagkmblhdlmihmgkjhkkfcjaekckaafgabfclmgahmdebjekaedhaiikdjmfbmfbdlcafamjbfe
+fdbdidhaiqbggqkhdmqhmemgljaphocpaacdohnokfqmlpmiioedpnjhphmjjnjlpihmpodgkmookedkehfaceklbljcjglncfal
+bcgdehhbcefeeadchgaheddegbiihehcbbdffiiiifgibhfbchffcaiabbbcceabehhiffggghbafabbaaebgediafabafdicdhg
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+mhmgmbbccbbaffhbncgndbffkjbhmkfncmihhdhcebmchnfacdigflhhbekhfejblegakjjiejeenibemfmkfjbkkmlichlkbnhc
+fdacbaeacbdbaaacafdfbbdcefadgfcagdfcgbgeafbfbggdedfbdefdbgbefcgdababafgffedbefdecbaabdaafggceffbacgb
+bahdcafcdadbdgagdddcidaaicggcfdbfeeeghiibbdhabdhffddhffcdccfdddhgiceciffhgdibfdacbidgagdadhdceibbbcc
+dichcagakdajjhhdhegiifiiggjebejejciaabbifkcbdeigajhgfcfdgekfajbcdifikafkgjjjfefkdbeicgiccgkjheeiefje
+
+The Correct Output is shown as:
+
+1464
+2452
+873
+585
+1305
+166650
+840
+2134
+1571
+1042
+
+But My output is:
+
+4763
+10574
+3759
+2701
+4412
+166650
+3990
+6781
+6838
+5315
+
+The following brute force JS algo gives correct op:
+
+function sherlockAndAnagrams(s) {
+    let count = 0;
+
+    // Size of our sliding window
+    for (let i = 1; i < s.length; i++) {
+        let found = {};
+        
+        // Starting index of our sliding window
+        for (let j = 0; j + i <= s.length; j++) {
+            let substr = s.substr(j, i);
+            substr = substr.split('').sort().join('');
+            if (found[substr]) {
+                count += found[substr];
+                found[substr]++;
+            } else {
+                found[substr] = 1;
+            }
+        }
+    }
+
+    return count;
+}
+
+ */

@@ -130,7 +130,11 @@ public class Helpers {
     }
     
     static long nCr(int n, int r) {
-        return factorial(n).divide(factorial(r).multiply(factorial(n - r))).longValue();
+        return (factorial(n).divide(factorial(r).multiply(factorial(n - r)))).longValue();
+    }
+    
+    static long nC2(int n) {
+        return (n * (n-1))/2;
     }
     
     public static void main(String[] args) {
