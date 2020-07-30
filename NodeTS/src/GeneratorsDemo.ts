@@ -27,3 +27,22 @@ let params: IteratorOptions = {
 for (const num of numbers[Symbol.iterator](params)) {
   console.log(num);
 }
+
+// Async Iterator And Generator
+let message = {
+  async *[Symbol.asyncIterator]() {
+    yield "hello";
+    await new Promise((r) => setTimeout(r, 2000)); // js version of sleep()
+    yield " ";
+    await new Promise((r) => setTimeout(r, 2000));
+    yield "World";
+  },
+};
+
+const printMessage = async (stuffToPrint: any) => {
+  for await (const word of stuffToPrint) {
+    console.log(word);
+  }
+};
+
+printMessage(message);
