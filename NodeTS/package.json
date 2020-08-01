@@ -7,7 +7,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "npx tsc && node src/index.js"
+    "start": "cd dist && npx tsc && node"
   },
   "devDependencies": {
     "@types/node": "^14.0.26",
