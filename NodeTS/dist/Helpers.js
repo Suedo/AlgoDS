@@ -105,3 +105,23 @@ export const range = (start, stop, inc) => {
 // console.log(ceil(arr, 25));
 // console.log(ceil(arr, -1));
 // console.log(ceil(arr, 102));
+/**
+ * Find the floor, ie, biggest value less than or EQUAL to given value
+ * @param arr array to search
+ * @param elem elem whose floor value to find
+ */
+export const floorInclusive = (arr, elem) => {
+    // base cases
+    // console.log(`------------------- ${elem} -------------------`);
+    if (elem < arr[0])
+        return undefined;
+    if (elem > arr[arr.length - 1])
+        return arr[arr.length - 1];
+    const [rankofelem, lastCheckedIdx] = rank(arr, elem);
+    const lastChecked = arr[lastCheckedIdx];
+    // console.log("> ", rankofelem, lastCheckedIdx, `$`, elem);
+    if (lastChecked <= elem)
+        return lastChecked;
+    else
+        return arr[lastCheckedIdx - 1]; // greater
+};
