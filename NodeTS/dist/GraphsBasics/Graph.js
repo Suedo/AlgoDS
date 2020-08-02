@@ -1,19 +1,19 @@
-"use strict";
 // Adjacency List Graph
-class Graph {
+// rough translation of Algs4@Princeton Graph.java to TS
+import { DFS } from "./DFS.js";
+// Original: https://algs4.cs.princeton.edu/41graph/Graph.java.html
+export class Graph {
     constructor(vertices) {
+        this.vertices = vertices;
         this.addEdge = (u, v) => {
             this.adj.get(u)?.push(v) || this.adj.set(u, [v]);
             this.adj.get(v)?.push(u) || this.adj.set(v, [u]);
         };
-        this.getCount = () => {
-            return this.vertices;
-        };
-        this.degree = (vertex) => {
-            return this.adj.get(vertex)?.length;
-        };
+        this.getCount = () => this.vertices;
+        this.degree = (vertex) => this.adj.get(vertex)?.length;
+        this.edgesOf = (vertex) => this.adj.get(vertex);
         this.print = () => {
-            // nice way to iterate over map, ES2017 i blv
+            // iterate over map, ES2017 i blv
             for (const [key, value] of this.adj.entries()) {
                 console.log(`${key} : ${value}`);
             }
@@ -34,7 +34,8 @@ const vertices = 6;
 const g = new Graph(vertices);
 edges.forEach(([u, v]) => g.addEdge(u, v));
 g.print();
-console.log(g.degree(4));
+console.log(g.degree(4) + "\n\n");
+new DFS(g).go(1);
 /*
 1 : 2
 2 : 1,3,4
