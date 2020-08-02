@@ -2,6 +2,7 @@ import { Graph } from "./Graph.js";
 
 export class DFS<T> {
   visited: Map<T, boolean>;
+  size: number = 0;
 
   constructor(private g: Graph<T>) {
     this.g = g;
@@ -9,13 +10,17 @@ export class DFS<T> {
   }
 
   private dfs = (vertex: T) => {
-    if (this.visited.get(vertex)) return; // already visited?
+    if (this.visited.get(vertex)) return;
     this.visited.set(vertex, true);
-    console.log(vertex);
+    this.size++;
+    // console.log(`${vertex} ${this.size}`);
 
     const neighbors = this.g.edgesOf(vertex);
     neighbors?.map(this.dfs);
   };
 
-  go = (vertex: T) => this.dfs(vertex);
+  go = (vertex: T) => {
+    this.dfs(vertex);
+    return this.size;
+  };
 }

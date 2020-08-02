@@ -5,21 +5,21 @@ import { DFS } from "./DFS.js";
 
 // Original: https://algs4.cs.princeton.edu/41graph/Graph.java.html
 export class Graph<T> {
-  private adj: Map<T, T[]>;
-
-  constructor(private vertices: number) {
-    this.adj = new Map();
-    this.vertices = vertices;
-  }
+  private adj: Map<T, T[]> = new Map();
 
   addEdge = (u: T, v: T) => {
     this.adj.get(u)?.push(v) || this.adj.set(u, [v]);
     this.adj.get(v)?.push(u) || this.adj.set(v, [u]);
   };
 
-  getCount = () => this.vertices;
+  getSize = () => this.vertices().length;
   degree = (vertex: T) => this.adj.get(vertex)?.length;
   edgesOf = (vertex: T) => this.adj.get(vertex);
+  vertices = () => {
+    const vs = [];
+    for (const elem of this.adj.keys()) vs.push(elem);
+    return vs;
+  };
 
   print = () => {
     // iterate over map, ES2017 i blv
@@ -42,14 +42,12 @@ const edges: Edges<number> = [
   [4, 6],
 ];
 
-const vertices = 6;
-
-const g = new Graph<number>(vertices);
+const g = new Graph<number>();
 edges.forEach(([u, v]) => g.addEdge(u, v));
 g.print();
 console.log(g.degree(4) + "\n\n");
 
-new DFS<number>(g).go(1);
+console.log(new DFS<number>(g).go(1));
 
 /*
 1 : 2
