@@ -1,8 +1,7 @@
 # Commons
 
-<br>
 
-- ## Array Duplicates <hr>
+- ## Array Duplicates
 
     Find duplicates in an array of all positive integers. 
     Leetcode link: [https://leetcode.com/problems/find-all-duplicates-in-an-array/](https://leetcode.com/problems/find-all-duplicates-in-an-array/)
@@ -31,9 +30,8 @@
 
     ![Commons/IntArrayDuplicate.jpg](Commons/IntArrayDuplicate.jpg)
 
-<br>
 
-- ## Reverse Linked List <hr>
+- ## Reverse Linked List
 
     Given a singly linked list, here's a simple way to reverse the same.
 
@@ -58,9 +56,8 @@
 
     ![Commons/reverseLinkedList.jpg](Commons/reverseLinkedList.jpg)
 
-<br>
 
-- ## Sum of Integers as Lists <hr>
+- ## Sum of Integers as Lists
 
     [https://leetcode.com/problems/add-two-numbers/](https://leetcode.com/problems/add-two-numbers/)
 
