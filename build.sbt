@@ -4,4 +4,8 @@ version := "0.1"
 
 scalaVersion := "2.13.1"
 // https://mvnrepository.com/artifact/io.vavr/vavr
-libraryDependencies += "io.vavr" % "vavr" % "1.0.0-alpha-2"
+libraryDependencies ++= Seq(
+  "io.vavr" % "vavr" % "1.0.0-alpha-2",
+  "javax.xml.bind" % "jaxb-api" % "2.3.1"
+)
+
