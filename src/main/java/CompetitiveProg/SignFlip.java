@@ -10,14 +10,14 @@ public class SignFlip {
 
     boolean insideBrackets = false;
     String lastOuterSymbol = null;
-    List<String> numbers = Arrays.asList("1234567890".split("")) ;
+    List<String> numbers = Arrays.asList("1234567890".split(""));
 
 
     public void process() {
-        for(String c : str.split("") ) {
-            if(c.equals(" ")) System.out.print(c);
+        for (String c : str.split("")) {
+            if (c.equals(" ")) System.out.print(c);
             else if (c.equals("+") || c.equals("-")) {
-                if(!insideBrackets) {
+                if (!insideBrackets) {
                     lastOuterSymbol = c;
                     System.out.print(c);
                 } else {
@@ -25,18 +25,18 @@ public class SignFlip {
                     // check outer symbol, if "-" , reverse current symbol
                     if (lastOuterSymbol.equals("-")) {
                         // flip the symbol
-                        System.out.print( c.equals("+") ? "-" : "+");
+                        System.out.print(c.equals("+") ? "-" : "+");
                     } else {
                         // last outer symbol was "+", no need to reverse
                         System.out.print(c);
                     }
                 }
-            } else if (c.equals("(") ) {
+            } else if (c.equals("(")) {
                 insideBrackets = true;
-            } else if ( c.equals(")")) {
+            } else if (c.equals(")")) {
                 insideBrackets = false;
                 lastOuterSymbol = null;
-            }else if (numbers.contains(c)) {
+            } else if (numbers.contains(c)) {
                 System.out.print(c);
             }
         }
