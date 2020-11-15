@@ -37,8 +37,12 @@ public class FileHash {
     List<String> op = null;
     try (Stream<Path> stream = Files.walk(Path.of(rootDir), depth)) {
       Instant start = Instant.now();
-      op = stream.parallel().filter(path -> !Files.isDirectory(path)) // skip directories
-          .map(FileHash::getHexHash).collect(Collectors.toList());
+      op = stream
+          .filter(path -> !Files.isDirectory(path)) // skip directories
+          .collect(Collectors.toList()) // https://stackoverflow.com/a/64848609/2715083
+          .stream().parallel()
+          .map(FileHash::getHexHash)
+          .collect(Collectors.toList());
       Instant end = Instant.now();
       System.out.println("Parallel dive completed in (ms): " + Duration.between(start, end).toMillis());
     } catch (Exception e) {
