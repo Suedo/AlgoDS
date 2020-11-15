@@ -1,0 +1,26 @@
+Undirected Graph:
+
+E(u,v) === E(v,u)
+
+
+Common problems and Graph Theory Solutions:
+
+1. Shortest path:
+  BFS (unweighted graph), Dijkstra, Bellman Ford, Floyd Warshall, A* .. etc
+2. Connectivity:
+  DFS, Union-Find
+3. Detecting Negative Cycles: (good to have in arbitrage trading, bad elsewhere generally)
+  Bellman-Ford, Floyd-Warshall
+4. Strongly COnnected Component
+  Tarjan, Kosaraju
+5. Travelling Salesman:
+  Held Karp, Branch and Bound, Approximation Algo like Ant-Colony
+6. Bridges and Artiulation points
+7. Minimal SPanning Tree
+8. Network Flow : Max Flow 
+  Ford-Fulkerson, Edmonds-Karp and Dinic
+
+
+DFS Overview:
+By itself, not much. simple algo, has O(V+E) time. 
+But shines when used to find Connected Component, determine connectivity, bridges/articulation points etc
