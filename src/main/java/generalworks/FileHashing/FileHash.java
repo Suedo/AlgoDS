@@ -1,4 +1,4 @@
-package generalworks;
+package generalworks.FileHashing;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
