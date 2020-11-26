@@ -1,5 +1,7 @@
 package generalworks.FileHashing;
 
+import org.apache.commons.codec.digest.MurmurHash3;
+
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,6 +25,16 @@ public class FileHash {
       System.out.println("deleting: " + f);
       Files.delete(Path.of(f));
     }
+  }
+  
+  public static String getMurmer128(Path path) {
+    int hash = 0;
+    try {
+      hash = MurmurHash3.hash32x86(Files.readAllBytes(path));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return String.valueOf(hash);
   }
   
   public static String getHexHash(Path path) {
@@ -59,6 +71,18 @@ public class FileHash {
         .collect(Collectors.toList());
     Instant end = Instant.now();
     System.out.println("Parallel dive completed in (ms): " + Duration.between(start, end).toMillis());
+    
+    return op;
+  }
+  
+  public static List<String> diveParallelMurmer3(List<Path> paths) {
+    //    https://www.baeldung.com/java-list-directory-files
+    Instant start = Instant.now();
+    List<String> op = paths.stream().parallel()
+        .map(FileHash::getMurmer128)
+        .collect(Collectors.toList());
+    Instant end = Instant.now();
+    System.out.println("Parallel Murmer dive completed in (ms): " + Duration.between(start, end).toMillis());
     
     return op;
   }
@@ -115,7 +139,8 @@ public class FileHash {
     FileHash.diveParallel(warmup3Files);
     FileHash.diveParallel(warmup3Files);
     
-    List<String> strings = FileHash.diveParallel(mainFiles);
-    writeToFile(opFile, strings);
+    List<String> strings = FileHash.diveParallel(mainFiles); // 277118 ms
+    FileHash.diveParallelMurmer3(mainFiles); // 246748 ms
+//    writeToFile(opFile, strings);
   }
 }
