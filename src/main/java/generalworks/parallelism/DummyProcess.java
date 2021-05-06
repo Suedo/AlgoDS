@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 public class DummyProcess {
-    public static int loops = 500;
+    public static int loops = 100;
     public static int idx = 0;
     private static long sleepTimeMs = 1000;
 
@@ -29,7 +29,6 @@ public class DummyProcess {
         Instant start = Instant.now();
         LongSummaryStatistics stats = LongStream.range(0, loops).parallel().map(DummyProcess::slowNetworkCall).summaryStatistics();
         log.info("ps200 completed in :: {}, summaryStats :: {} ", Duration.between(start, Instant.now()).toMillis(), stats);
-
     }
 
     /**
@@ -90,7 +89,7 @@ public class DummyProcess {
 
     public static Long slowNetworkCall(Long i) {
         Instant start = Instant.now();
-        log.info(" {} going to sleep..", i);
+        log.info(" {} going to sleep. poolsize: {}", i, ForkJoinPool.commonPool().getPoolSize());
         try {
             TimeUnit.MILLISECONDS.sleep(sleepTimeMs);
         } catch (InterruptedException e) {
@@ -106,11 +105,11 @@ public class DummyProcess {
         System.out.println("CommonPool Common Parallelism: " + ForkJoinPool.getCommonPoolParallelism());
 
 //        DummyProcess.seq();
-//        DummyProcess.ps();
-        DummyProcess.cf();
+        DummyProcess.ps();
+//        DummyProcess.cf();
 //        DummyProcess.cf_directJoin();
 //        DummyProcess.cfps();
-//        DummyProcess.cfps_directJoin();
+        DummyProcess.cfps_directJoin();
 //        DummyProcess.cf200ps();
         System.exit(0);
     }
