@@ -39,7 +39,7 @@ public class AnagramPairsSimple {
     }
     
     public static void main(String[] args) {
-        try (BufferedReader r = new BufferedReader(new FileReader("Files/anagram-pair.txt"))) {
+        try (BufferedReader r = new BufferedReader(new FileReader("Files/in/in/anagram-pair.txt"))) {
             String line = "";
             while ((line = r.readLine()) != null) {
                 System.out.println(numOfAnagramPairs(line.trim()));

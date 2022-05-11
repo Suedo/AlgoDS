@@ -11,7 +11,7 @@ import static CompetitiveProg.Helpers.show2DArr;
 
 public class LongestCommonSubsequence {
     
-    private static final String path = "Files/lcs.txt";
+    private static final String path = "Files/in/in/lcs.txt";
     
     private static void debug(String[] p, String[] q, int n, int m) {
         String op = String.format("P: %s \t\t Q: %s, n: %2d, m: %2d", Arrays.toString(p), Arrays.toString(q), n, m);

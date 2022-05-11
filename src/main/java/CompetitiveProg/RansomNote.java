@@ -5,12 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 // https://www.hackerrank.com/challenges/ctci-ransom-note/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=dictionaries-hashmaps
 public class RansomNote {
     
-    private final static String path = "Files/ransome-note.txt";
+    private final static String path = "Files/in/in/ransome-note.txt";
     
     private static HashMap<String, Integer> magMap = new HashMap<>();
     

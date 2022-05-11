@@ -1,15 +1,13 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class test {
     // n * n
     
-    private static String path = "Files/transpose.txt";
+    private static String path = "Files/in/in/transpose.txt";
     
     public ArrayList<ArrayList<String>> transpose(ArrayList<ArrayList<String>> matrix) {
         ArrayList<ArrayList<String>> t = new ArrayList<>();

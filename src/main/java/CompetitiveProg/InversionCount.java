@@ -3,13 +3,12 @@ package CompetitiveProg;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class InversionCount {
 
     private static int[] aux;
-    private static String path = "Files/inv-count-single.txt";
+    private static String path = "Files/in/in/inv-count-single.txt";
 
 
     // Complete the countInversions function below.

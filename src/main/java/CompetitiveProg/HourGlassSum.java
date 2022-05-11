@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class HourGlassSum {
 
-  private static String path = "Files/hourglass-ip.txt";
+  private static String path = "Files/in/in/hourglass-ip.txt";
   private static int HourGlassLen = 3;
 
   public static int hourglassSum(int[][] arr) {
