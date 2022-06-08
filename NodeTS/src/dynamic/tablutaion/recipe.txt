@@ -1,0 +1,5 @@
+1. visualize the problem as a table
+2. size the table based on input value
+3. initialize the table with default values
+4. seed the trivial/base case into the table
+5. iterate thru the table based on some logic: hard part
