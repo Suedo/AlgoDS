@@ -23,10 +23,11 @@ const dfs_explore = (graph, source, visited) => {
 
   let result = []
   for (const neighbor of graph[source]) {
-    let x = dfs_explore(graph, neighbor, visited)   // each substep of this recursion
-    result.push(...x)                               // collect substep results
+    // each substep of this recursion, collect into results
+    result.push(...dfs_explore(graph, neighbor, visited))
   }
-  result.push(source)                               // combine with this step
+  // combine with this step
+  result.push(source)
   console.log(`\tcurrent: ${source}, result: ${result}`);
   return result
 }
