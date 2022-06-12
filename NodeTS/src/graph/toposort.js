@@ -81,7 +81,7 @@ const topologicalSort = (graph) => {
     let stack = dfs(graph, +node, white)
     // console.log(node, stack);
     let { cycle, value } = stack
-    topsorts.push(value)
+    topsorts.push(value.reverse())
     hasCycle = hasCycle || cycle;
   }
 
