@@ -23,7 +23,7 @@ const combineIntoArray = (entry, arr) => {
   let newArr = [entry, ...arr], result = [];
 
   // js will modify the same object each time
-  // save a shallow copy to preserve current state of modifications
+  // save a deep copy to preserve current state of modifications
   result.push([...newArr]) // shallow copy
   for (let i = 0; i < newArr.length - 1; i++) {
     // swap i, i+1
@@ -39,6 +39,7 @@ const combineIntoArray = (entry, arr) => {
 // console.log(JSON.stringify(combineIntoArray('X', arr)));
 // https://youtu.be/us0cYQXQpxg
 console.log(JSON.stringify(permutations(['a', 'b', 'c'])));
+// console.log(JSON.stringify(permutations(['0', '1', '2', '3'])));
 
 /*
 
