@@ -40,11 +40,11 @@ const lowestK = (numstr, k) => {
     stack.push(curr);
   }
 
-  // by this time, if k !== 0, it means we didnt find a dip, the sequence of numbers were always same or increasing
-  // example : 12223 : continuously same or increasing, no dip, so k wont be exhausted
+  // by this time, if k !== 0, it means we have found the correct sequence, but still some characters need removing
+  // we remove from the end, as that is the least significant digit when converted to a number
   // this particular logic is not covered in the algo in https://www.youtube.com/watch?v=3QJzHqNAEXs
   while (k > 0 && stack.length > 0) {
-    stack.pop(); // decrements from the end, as contious increasing number will have biggest numbers at the end
+    stack.pop();
     k--;
   }
 
