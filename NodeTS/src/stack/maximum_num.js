@@ -10,6 +10,13 @@ Thus, the solution becomes:
 2. when combined, the result in the largest number possible
 
 
+---------------------- SOLUTION STATS as per leetcode ----------------------------------------
+Runtime: 1064 ms, faster than 37.50% of JavaScript online submissions for Create Maximum Number.
+Memory Usage: 90.6 MB, less than 8.33% of JavaScript online submissions for Create Maximum Number.
+
+This is a slow algo, need to find better ones
+-----------------------------------------------------------------------------------------------
+
 */
 
 /**
@@ -51,33 +58,37 @@ const maxSubsequence = (arr, subsequenceSize) => {
   return stack;
 }
 
-// const merge = (arr1, arr2) => {
-//   console.log(`received: [${arr1}] and [${arr2}]`);
-//   if (arr1.length === 0) return arr2;
-//   if (arr2.length === 0) return arr1;
+// is seqA greater than seqB
+const isGreater = (seqA, seqB) => {
 
-//   let rank = 0;
-//   while (rank < arr2.length) {
-//     if (arr2[rank] <= arr1[0]) break;
-//     rank++;
-//   }
-//   console.log(`rank of ${arr1[0]} in ${arr2}: ${rank}`);
-//   let merged = [...arr2.slice(0, rank), ...arr1, ...arr2.slice(rank)]
-//   console.log(`merged: [${merged}]`);
-//   return merged;
-// }
+  let idxA = 0, idxB = 0;
+  while (idxA < seqA.length || idxB < seqB.length) {
+    if (idxB >= seqB.length) return true; // seqB over, but seqA still going
+    if (idxA >= seqA.length) return false; // seqA over, but seqB still going
+    if (seqA[idxA] > seqB[idxB]) return true;
+    if (seqA[idxA] < seqB[idxB]) return false;
+    idxA++, idxB++; // when both equal, simply continue to next
+  }
+}
 
 const merge = (arr1, arr2) => {
-  console.log(`received: [${arr1}] and [${arr2}]`);
-  if (arr1.length === 0) return arr2;
-  if (arr2.length === 0) return arr1;
+  let result = new Array(arr1.length + arr2.length), idx1 = 0, idx2 = 0;
 
-  let result = [], idx = 0;
-  //mergesort like
+  for (let idxR = 0; idxR < result.length; idxR++) {
+    if (idx1 >= arr1.length) result[idxR] = arr2[idx2++] // arr1 done, merge from arr2
+    else if (idx2 >= arr2.length) result[idxR] = arr1[idx1++] // arr2 done, merge from arr1
 
+    // we want highest number from merge, so descending order
+    else if (arr1[idx1] > arr2[idx2]) result[idxR] = arr1[idx1++]
+    else if (arr1[idx1] < arr2[idx2]) result[idxR] = arr2[idx2++]
+    else if (isGreater(arr1.slice(idx1), arr2.slice(idx2))) result[idxR] = arr1[idx1++]
+    else result[idxR] = arr2[idx2++]
+  }
 
-  return merged;
+  console.log(`received: [${arr1}] and [${arr2}], Merged: [${result}]`);
+  return result;
 }
+
 
 const maxNumber = (nums1, nums2, k) => {
   let result = [];
@@ -88,24 +99,35 @@ const maxNumber = (nums1, nums2, k) => {
     result.push(merge(maxSubsequence(nums1, i), maxSubsequence(nums2, j)))
   }
 
-  let allPossibleK = result.filter(e => e.length === k);
-  console.log(allPossibleK);
-  allPossibleK.sort((a, b) => +(b.join("")) - +(a.join(""))) // desc order sort
-  return allPossibleK[0]
+  let allPossibleK = result.filter(e => e.length === k); // array of Num arrays
+  console.log(allPossibleK.map(e => e.join("")));
+
+  // allPossibleK.sort((a, b) => +(b.join("")) - +(a.join(""))) // desc order sort
+  // ^^^ this kindof sort, based on Number value wont work, as the value is bigger than what 'Number' an hold
+  // we can reuse our sequence comparison here, as it compares each position at a time
+  let maxVal = [];
+  for (let i = 0; i < allPossibleK.length; i++) {
+    const curr = allPossibleK[i];
+    if (isGreater(curr, maxVal)) maxVal = curr;
+  }
+
+  return maxVal;
 
 }
 
 
-let nums1 = [3, 4, 6, 5], nums2 = [9, 1, 2, 5, 8, 3], k = 5;
-// console.log(maxNumber(nums1, nums2, k));
-// console.log("-".repeat(60));
-// nums1 = [3, 9], nums2 = [8, 9], k = 3
-// console.log(maxNumber(nums1, nums2, k));
+console.log("-".repeat(60));
+let nums1 = [3, 9], nums2 = [8, 9], k = 3
+console.log(maxNumber(nums1, nums2, k));
 
-// console.log("-".repeat(60));
-// nums1 = [6, 7], nums2 = [6, 0, 4], k = 5
-// console.log(maxNumber(nums1, nums2, k));
+console.log("-".repeat(60));
+nums1 = [6, 7], nums2 = [6, 0, 4], k = 5
+console.log(maxNumber(nums1, nums2, k));
 
 console.log("-".repeat(60));
 nums1 = [9, 1, 2, 5, 8, 3], nums2 = [3, 4, 6, 5], k = 5
 console.log(maxNumber(nums1, nums2, k)); // w: o/p: [9,8,4,6,5], expected: [9,8,6,5,3]
+
+console.log("-".repeat(60));
+nums1 = [2, 5, 6, 4, 4, 0], nums2 = [7, 3, 8, 0, 6, 5, 7, 6, 2], k = 15
+console.log(maxNumber(nums1, nums2, k)); // [7, 3, 8, 2, 5, 6, 4, 4, 0, 6, 5, 7, 6, 2, 0]
