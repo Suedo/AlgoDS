@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+// Optimized
 public class NQueensV2 {
 
     public static List<String> printBoard(List<Integer> validBoard, int n) {
@@ -38,19 +39,18 @@ public class NQueensV2 {
         return true;
     }
 
-    public void dfs(LinkedList<Integer> candidate, List<List<Integer>> state, int n) {
+    public void dfs(LinkedList<Integer> candidate, List<List<String>> state, int n) {
         if (candidate.size() > 1 && !isValid(candidate)) {
             return;
         }
         if (candidate.size() == n) {
-            state.add(new ArrayList<>(candidate));
+            state.add(printBoard(candidate, n));
             return;
         }
 
         // permutations loop
         for (int i = 0; i < n; i++) {
-            Integer current = Integer.valueOf(i);
-            candidate.add(current); // adds to the end
+            candidate.add(i); // adds to the end
             dfs(candidate, state, n);
             candidate.removeLast(); // backtrack
         }
@@ -58,15 +58,10 @@ public class NQueensV2 {
 
     public List<List<String>> solveNQueens(int n) {
 
-        List<List<Integer>> state = new ArrayList<>();
+        List<List<String>> state = new ArrayList<>();
         dfs(new LinkedList<>(), state, n);
 
-        List<List<String>> QBoard = state
-                .parallelStream()
-                .map(board -> printBoard(board, n))
-                .collect(Collectors.toList());
-
-        return QBoard;
+        return state;
     }
 
     public static void main(String[] args) {
