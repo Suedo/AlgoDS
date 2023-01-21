@@ -5,11 +5,9 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 // Optimized
-public class NQueensV2 {
+public class NQueensOptimized {
 
     public static List<String> printBoard(List<Integer> validBoard, int n) {
         char[][] board = new char[n][n];
@@ -65,7 +63,7 @@ public class NQueensV2 {
     }
 
     public static void main(String[] args) {
-        NQueensV2 nQueens = new NQueensV2();
+        NQueensOptimized nQueens = new NQueensOptimized();
         Instant start = Instant.now();
         List<List<String>> sol = nQueens.solveNQueens(4);// [[1, 3, 0, 2], [2, 0, 3, 1]], [[.Q.., ...Q, Q..., ..Q.], [..Q., Q..., ...Q, .Q..]]
         System.out.println("completed in (ms): " + Duration.between(start, Instant.now()).toMillis());
