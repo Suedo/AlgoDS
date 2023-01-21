@@ -29,6 +29,10 @@ public class CombinationSum3 {
         return sum;
     }
 
+    /**
+     * @param n remaining targetsum
+     * @param k remaining digits left to form targetsum
+     */
     private void dfs(List<Integer> rem, List<Integer> candidate, List<List<Integer>> state, int n, int k) {
         if (k == 0) {
             if (n == 0) {
