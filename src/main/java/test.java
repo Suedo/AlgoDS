@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Test;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,24 +17,32 @@ public class test {
         for (int i = 0; i < matrix.get(0).size(); i++) {
             t.add(new ArrayList<String>());
         }
-        
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 t.get(i).add(matrix.get(j).get(i));
             }
         }
-        
+
         return t;
     }
-    
-    
-    
-    
+
+    @Test
+    void char_toString_ignores_nulls() {
+        char[] arr = new char[10];
+        arr[0] = 'a';
+        arr[1] = 'b';
+
+        System.out.println(new String(arr).trim());
+
+    }
+
+
     public static void main(String[] args) {
-        
+
         ArrayList<ArrayList<String>> matrix = new ArrayList<>();
         try (BufferedReader r = new BufferedReader(new FileReader(path))) {
-            
+
             String line = "";
             while ((line = r.readLine()) != null) {
                 ArrayList<String> row = new ArrayList<>(Arrays.asList(line.trim().split(" ")));
