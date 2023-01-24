@@ -1,21 +1,57 @@
 package _2023.backtrack;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 public class SudokuSolver {
 
-    List<Set<Character>> rows = new ArrayList<>();
-    List<Set<Character>> cols = new ArrayList<>();
-    List<Set<Character>> grids = new ArrayList<>();
     char dot = '.';
-    //    List<Character> valids = List.of('1', '2', '3', '4', '5', '6', '7', '8', '9');
     char[] valids = new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
     public int gridNum(int i, int j) {
         return ((i / 3) * 3) + j / 3;
+    }
+
+    // https://leetcode.com/problems/sudoku-solver/
+    public void solveSudoku(char[][] board) {
+
+        dfs(board, 0, 0);
+        print(board);
+    }
+
+    private boolean isValid(char[][] board, int row, int col, Character option) {
+
+        for (int i = 0; i < board.length; i++) {
+            if (board[row][i] == option) return false;
+        }
+
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][col] == option) return false;
+        }
+
+        int subGridStartRow = row - row % 3;
+        int subGridStartCol = col - col % 3;
+        for (int i = subGridStartRow; i < subGridStartRow + 3; i++) {
+            for (int j = subGridStartCol; j < subGridStartCol + 3; j++) {
+                if (board[i][j] == option) return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean dfs(char[][] board, int row, int col) {
+        System.out.println(String.format("at [%d, %d]", row, col));
+
+        if (row == 9) return true; // solved
+        if (col == 9) return dfs(board, row + 1, 0); // next row
+        if (board[row][col] != dot) return dfs(board, row, col + 1);
+
+        for (Character option : valids) {
+            if (isValid(board, row, col, option)) {
+                board[row][col] = option;
+                System.out.println(String.format("    [%d, %d], v: %s", row, col, option));
+                if (dfs(board, row, col + 1)) return true;
+                board[row][col] = dot; // backtrack
+            }
+        }
+        return false;
     }
 
     public void print(char[][] board) {
@@ -24,53 +60,6 @@ public class SudokuSolver {
                 System.out.print(board[i][j] + " | ");
             }
             System.out.println("");
-        }
-    }
-
-    // https://leetcode.com/problems/sudoku-solver/
-    public void solveSudoku(char[][] board) {
-
-        for (int i = 0; i < board.length; i++) {
-            rows.add(new HashSet<>());
-            cols.add(new HashSet<>());
-            grids.add(new HashSet<>());
-        }
-
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                char curr = board[i][j];
-                if (curr != dot) {
-                    rows.get(i).add(curr);
-                    cols.get(j).add(curr);
-                    grids.get(gridNum(i, j)).add(curr);
-                }
-            }
-        }
-
-        dfs(board, 0, 0);
-        print(board);
-    }
-
-    public void dfs(char[][] board, int row, int col) {
-        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) return;
-        if (board[row][col] != dot) return;
-
-        HashSet<Character> total = new HashSet<>(rows.get(row));
-        total.addAll(cols.get(col));
-        total.addAll(grids.get(gridNum(row, col)));
-
-        List<Character> options = new ArrayList<>();
-        for (Character c : valids) {
-            if (!total.contains(c)) options.add(c);
-        }
-        System.out.println(String.format("[%d, %d], "));
-
-        for (Character option : options) {
-            board[row][col] = option;
-            dfs(board, row, col - 1);
-            dfs(board, row, col + 1);
-            dfs(board, row - 1, col);
-            dfs(board, row + 1, col);
         }
     }
 
