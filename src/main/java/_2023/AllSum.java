@@ -1,6 +1,6 @@
 package _2023;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Slf4j
+@Log4j2
 public class AllSum {
 
     private HashMap<Integer, List<String>> memo = new HashMap<>();

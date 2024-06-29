@@ -1,8 +1,8 @@
 package generalworks.FileHashing;
 
+import jakarta.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.digest.MurmurHash3;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

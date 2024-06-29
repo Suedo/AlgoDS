@@ -1,17 +1,13 @@
 package _2023;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
+import lombok.extern.log4j.Log4j2;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
+@Log4j2
 public class AllConstruct {
 
     HashMap<String, List<String>> memo = new HashMap<>();

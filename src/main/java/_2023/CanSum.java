@@ -1,14 +1,11 @@
 package _2023;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
+import lombok.extern.log4j.Log4j2;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Slf4j
+@Log4j2
 public class CanSum {
 
     private HashMap<Integer, Boolean> memo = new HashMap<>();
